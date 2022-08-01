@@ -49,9 +49,9 @@ public class PuestosTrabajoForm extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         cbPuestoT = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        txtSalario = new javax.swing.JPasswordField();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        txtSalario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -69,6 +69,7 @@ public class PuestosTrabajoForm extends javax.swing.JDialog {
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Puesto de Trabajo:");
 
+        cbPuestoT.setModel(enumPuestosTrabajo);
         cbPuestoT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbPuestoTActionPerformed(evt);
@@ -77,12 +78,6 @@ public class PuestosTrabajoForm extends javax.swing.JDialog {
 
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Salario:");
-
-        txtSalario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSalarioActionPerformed(evt);
-            }
-        });
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/check.png"))); // NOI18N
         btnGuardar.setText("Guardar");
@@ -166,16 +161,12 @@ public class PuestosTrabajoForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtSalarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSalarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSalarioActionPerformed
-
     @SuppressWarnings("empty-statement")
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
  String sucursal = cbSucursalesUI.getSelectedItem().toString();
         String puestoTrabajo = cbPuestoT.getSelectedItem().toString();
         String salario = txtSalario.getText();
-        String query = "SELECT idSucursal FROM sucursal WHERE nombreSucursal = '" + sucursal + "';";
+        String query="SELECT idSucursal FROM sucursal WHERE nombreSucursal = '" + sucursal + "';";
         try {
             connection = conexion.getConnection();
             st = connection.createStatement();
@@ -261,6 +252,6 @@ public class PuestosTrabajoForm extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField txtSalario;
+    private javax.swing.JTextField txtSalario;
     // End of variables declaration//GEN-END:variables
 }
