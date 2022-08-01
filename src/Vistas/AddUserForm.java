@@ -119,6 +119,7 @@ public class AddUserForm extends javax.swing.JDialog {
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Puesto de Trabajo:");
 
+        cbPuestoTrabajo.setModel(enumPuestosTrabajo);
         cbPuestoTrabajo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbPuestoTrabajoActionPerformed(evt);
@@ -250,8 +251,7 @@ public class AddUserForm extends javax.swing.JDialog {
         String correo = txtCorreo.getText();
         String nombreSucursal = cbSucursal.getSelectedItem().toString();
         String puestoTrabajo = cbPuestoTrabajo.getSelectedItem().toString();
-        String queryIdSucursal = "SELECT idSucursal FROM sucursal WHERE nombreSucursal = '"+nombreSucursal+"';";
-        String querypuestoTrabajo= "SELECT `idPuestoTrabajo` FROM `puestotrabajo` WHERE nombrePuestoTrabajo= '"+puestoTrabajo+"';";
+        String queryIdSucursal="SELECT `idSucursal`, `idPuestoTrabajo` FROM `sucursal` INNER JOIN puestotrabajo ON (sucursal.idSucursal = puestotrabajo.FK_idSucursal) WHERE nombreSucursal = '" + nombreSucursal +"'AND nombrePuestoTrabajo = '"+puestoTrabajo+"';";
         System.out.println(queryIdSucursal);
 
         if (nombre.isEmpty() || apellidos.isEmpty() || documento.isEmpty() || correo.isEmpty()) {
@@ -259,9 +259,8 @@ public class AddUserForm extends javax.swing.JDialog {
         } else {
             try {
                 connection = conexion.getConnection();
-                st = connection.createStatement();
+                st = connection.createStatement();      
                 rs = st.executeQuery(queryIdSucursal);
-                rs = st.executeQuery(querypuestoTrabajo);
                 while (rs.next()) {
                     int idSucursal = rs.getInt("idSucursal");
                     int idPuestoTrabajo = rs.getInt("idPuestoTrabajo");
